@@ -1,0 +1,8 @@
+<app-data-picker
+  [linkageData]="cityData"
+  [pickerSize]="3"
+  displayAttributeName="name"
+  childrenAttributeName="children"
+  [headNameList]="headNames"
+  (pickerEvent)="pickedValues($event)"
+></app-data-picker>
