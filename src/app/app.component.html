@@ -1,8 +1,16 @@
-<app-data-picker
-  [linkageData]="cityData"
-  [pickerSize]="4"
-  displayAttributeName="name"
-  childrenAttributeName="children"
-  [headNameList]="headNames"
-  (pickerEvent)="pickedValues($event)"
-></app-data-picker>
+<div class="container">
+  <app-data-picker
+    [data]="data" title="地区"
+    displayAttributeName="name"
+  ></app-data-picker>
+  <app-multi-data-picker
+    [linkageData]="cityData"
+    [pickerSize]="4"
+    displayAttributeName="name"
+    childrenAttributeName="children"
+    [headerNameList]="headNames"
+    (pickerEvent)="pickedValues($event)"
+  ></app-multi-data-picker>
+
+</div>
+

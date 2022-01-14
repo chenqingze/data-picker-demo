@@ -1,0 +1,74 @@
+<div class="picker-wrapper">
+  <span class="selected-highlight"></span>
+  <ng-template [ngIf]="pickerSize>0">
+    <div class="picker-container">
+      <div class="head">{{headerNameList[0]}}:<span
+        *ngIf="!!firstSelectedValue">{{!!displayAttributeName ? firstSelectedValue[displayAttributeName] : firstSelectedValue }}</span>
+      </div>
+      <div class="picker-content-wrapper">
+        <div #firstPickerContent class="picker-content" (scroll)="handleLevelScroll($event,pickerLevel.First)">
+          <ul class="picker-list">
+            <li class="item" (click)="scrollTo(i, $event, pickerLevel.First)"
+                *ngFor="let item of firstLevelData; let i = index;">
+              <span>{{!displayAttributeName ? item : item[displayAttributeName]}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div *ngIf="pickerSize>1" class="picker-separator">-</div>
+  <ng-template [ngIf]="pickerSize>1">
+    <div class="picker-container">
+      <div class="head">{{headerNameList[1]}}:<span
+        *ngIf="!!secondSelectedValue">{{!!displayAttributeName ? secondSelectedValue[displayAttributeName] : secondSelectedValue }}</span>
+      </div>
+      <div class="picker-content-wrapper">
+        <div #secondPickerContent class="picker-content" (scroll)="handleLevelScroll($event,pickerLevel.Second)">
+          <ul class="picker-list">
+            <li class="item" (click)="scrollTo(i, $event, pickerLevel.Second)"
+                *ngFor="let item of secondLevelData; let i = index;">
+              <span>{{!displayAttributeName ? item : item[displayAttributeName]}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div *ngIf="pickerSize>2" class="picker-separator">-</div>
+  <ng-template [ngIf]="pickerSize>2">
+    <div class="picker-container">
+      <div class="head">{{headerNameList[2]}}:<span
+        *ngIf="!!thirdSelectedValue">{{!!displayAttributeName ? thirdSelectedValue[displayAttributeName] : thirdSelectedValue }}</span>
+      </div>
+      <div class="picker-content-wrapper">
+        <div #thirdPickerContent class="picker-content" (scroll)="handleLevelScroll($event,pickerLevel.Third)">
+          <ul class="picker-list">
+            <li class="item" (click)="scrollTo(i, $event, pickerLevel.Third)"
+                *ngFor="let item of thirdLevelData; let i = index;">
+              <span>{{!displayAttributeName ? item : item[displayAttributeName]}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div *ngIf="pickerSize>3" class="picker-separator">-</div>
+  <ng-template [ngIf]="pickerSize>3">
+    <div class="picker-container">
+      <div class="head">{{headerNameList[3]}}:<span
+        *ngIf="!!fourthSelectedValue">{{!!displayAttributeName ? fourthSelectedValue[displayAttributeName] : fourthSelectedValue }}</span>
+      </div>
+      <div class="picker-content-wrapper">
+        <div #fourthPickerContent class="picker-content" (scroll)="handleLevelScroll($event,pickerLevel.Fourth)">
+          <ul class="picker-list">
+            <li class="item" (click)="scrollTo(i, $event, pickerLevel.Fourth)"
+                *ngFor="let item of fourthLevelData; let i = index;">
+              <span>{{!displayAttributeName ? item : item[displayAttributeName]}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

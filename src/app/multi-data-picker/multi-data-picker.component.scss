@@ -21,6 +21,17 @@
     border-radius: .1px;
   }
 
+  .picker-separator {
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-item-align: center;
+    align-self: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    z-index: 11;
+  }
+
   .picker-container {
     &::before {
       display: block;
