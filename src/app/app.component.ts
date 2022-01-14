@@ -14,7 +14,10 @@ export class AppComponent {
   headNames = headNames;
   cityData = cityData;
 
-  pickedValues(selectedValue: any) {
-    console.log(JSON.stringify(selectedValue));
+  pickedValues(selectedValue: Array<any>) {
+    console.log(selectedValue[0]);
+    console.log(JSON.stringify(selectedValue[0].name));
+    console.log(JSON.stringify(selectedValue[1].name));
+    console.log(JSON.stringify(selectedValue[2].name));
   }
 }

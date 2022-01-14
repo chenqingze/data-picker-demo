@@ -25,24 +25,25 @@ export class DataPickerComponent implements OnInit {
   @Input() secondLevelData: Array<any> = [];
   @Input() thirdLevelData: Array<any> = [];
   @Input() fourthLevelData: Array<any> = [];
-  firstScroll$ = new Subject<any>();
-  secondScroll$ = new Subject<any>();
-  thirdScroll$ = new Subject<any>();
-  fourthScroll$ = new Subject<any>();
+
+  @Output() pickerEvent = new EventEmitter();
+
   @ViewChild('firstPickerContent') firstPickerContentRef!: ElementRef;
   @ViewChild('secondPickerContent') secondPickerContentRef!: ElementRef;
   @ViewChild('thirdPickerContent') thirdPickerContentRef!: ElementRef;
   @ViewChild('fourthPickerContent') fourthPickerContentRef!: ElementRef;
+
   firstSelectedValue: any;
   secondSelectedValue: any;
   thirdSelectedValue: any;
   fourthSelectedValue: any;
-
-  @Output() pickerEvent = new EventEmitter();
+  firstScroll$ = new Subject<any>();
+  secondScroll$ = new Subject<any>();
+  thirdScroll$ = new Subject<any>();
+  fourthScroll$ = new Subject<any>();
 
 
   ngOnInit(): void {
-
     this.firstScroll$.asObservable().pipe(
       debounceTime(100)
     ).subscribe((v) => {
@@ -148,55 +149,52 @@ export class DataPickerComponent implements OnInit {
   // 数据联动
   dataLinkage(level: PickerLevelType): void {
     if (level === PickerLevelType.First) {// 1st level pick
-      if (this.pickerSize >= level.valueOf() && this.firstSelectedValue) {
+      if (this.pickerSize > 1 && this.firstSelectedValue) {
         this.secondLevelData = this.firstSelectedValue[this.childrenAttributeName];
         this.scrollTo(0, null, PickerLevelType.Second);
       } else {
         this.secondLevelData = [];
       }
       this.secondSelectedValue = this.secondLevelData[0];
-      if (this.pickerSize >= level.valueOf() && this.secondSelectedValue) {
+      if (this.pickerSize > 2 && this.secondSelectedValue) {
         this.thirdLevelData = this.secondSelectedValue[this.childrenAttributeName];
         this.scrollTo(0, null, PickerLevelType.Third);
       } else {
         this.thirdLevelData = [];
       }
       this.thirdSelectedValue = this.thirdLevelData[0];
-      if (this.pickerSize >= level.valueOf() && this.thirdSelectedValue) {
+      if (this.pickerSize > 3 && this.thirdSelectedValue) {
         this.fourthLevelData = this.thirdSelectedValue[this.childrenAttributeName];
         this.scrollTo(0, null, PickerLevelType.Fourth);
       } else {
         this.fourthLevelData = [];
       }
-      this.fourthSelectedValue = this.fourthLevelData[0];
     } else if (level === PickerLevelType.Second) {// 2nd level pick
-      if (this.pickerSize >= level.valueOf() && this.secondSelectedValue) {
+      if (this.pickerSize > 2 && this.secondSelectedValue) {
         this.thirdLevelData = this.secondSelectedValue[this.childrenAttributeName];
         this.scrollTo(0, null, PickerLevelType.Third);
       } else {
         this.thirdLevelData = [];
       }
       this.thirdSelectedValue = this.thirdLevelData[0];
-      if (this.pickerSize >= level.valueOf() && this.thirdSelectedValue) {
+      if (this.pickerSize > 3 && this.thirdSelectedValue) {
         this.fourthLevelData = this.thirdSelectedValue[this.childrenAttributeName];
         this.scrollTo(0, null, PickerLevelType.Fourth);
       } else {
         this.fourthLevelData = [];
       }
-      this.fourthSelectedValue = this.fourthLevelData[0];
-    } else if (this.pickerSize >= level.valueOf() && level === PickerLevelType.Third) {// 3rd level pick
-      if (this.pickerSize >= level.valueOf() && this.thirdSelectedValue) {
+    } else if (level === PickerLevelType.Third) {// 3rd level pick
+      if (this.pickerSize > 4 && this.thirdSelectedValue) {
         this.fourthLevelData = this.thirdSelectedValue[this.childrenAttributeName];
         this.scrollTo(0, null, PickerLevelType.Fourth);
       } else {
         this.fourthLevelData = [];
       }
-      this.fourthSelectedValue = this.fourthLevelData[0];
     } else if (level === PickerLevelType.Fourth) {
       // 4th level pick do nothing ,because the 4th level is the last level
     }
     // here could have more picker level case,care about the last level
-
+    this.pickerEvent.emit([this.firstSelectedValue, this.secondSelectedValue, this.thirdSelectedValue, this.fourthSelectedValue])
   }
 
   private getValueByPosition(y: number, level: PickerLevelType) {
